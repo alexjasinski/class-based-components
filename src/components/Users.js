@@ -3,23 +3,29 @@ import User from './User';
 
 import classes from './Users.module.css';
 
-
 class Users extends Component {
   constructor() {
     super();
     this.state = {
       showUsers: true,
-      more: 'Test'
+      more: 'Test',
     };
   }
-  
+
+  componentDidUpdate() {
+    
+    if (this.props.users.length === 0) {
+      throw new Error('No users provided!');
+    }
+  }
+
   toggleUsersHandler() {
     // this.state.showUsers = false; // NOT!
     this.setState((curState) => {
       return { showUsers: !curState.showUsers };
-  });
+    });
   }
-  
+
   render() {
     const usersList = (
       <ul>
@@ -36,7 +42,7 @@ class Users extends Component {
         </button>
         {this.state.showUsers && usersList}
       </div>
-      )
+    );
   }
 }
 
